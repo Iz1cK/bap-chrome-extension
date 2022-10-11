@@ -3,12 +3,15 @@
   "version": "1.0",
   "name": "My extension",
   "description": "mention in BAP discord server",
-  "permissions": ["contextMenus", "tabs", "storage", "activeTab"],
+  "permissions": ["contextMenus", "tabs", "storage", "activeTab", "identity"],
   "icons": {
     "128": "bap.png"
   },
   "background": {
-    "service_worker": "index.js"
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup-sign-in.html"
   },
   "host_permissions": ["*://*/*"]
 }

@@ -1,8 +1,9 @@
 const DISCORD_URI_ENDPOINT = "https://discord.com/api/oauth2/authorize";
 const CLIENT_ID = encodeURIComponent("1029367755348115506");
 const RESPONSE_TYPE = encodeURIComponent("token");
+const EXTENSION_ID = chrome.runtime.id;
 const REDIRECT_URI = encodeURIComponent(
-  "https://jcdgplfjkggdfbbnjhcnnbjmkklhoaec.chromiumapp.org/"
+  `https://${EXTENSION_ID}.chromiumapp.org/`
 );
 const SCOPE = encodeURIComponent("identify email");
 const STATE = encodeURIComponent(

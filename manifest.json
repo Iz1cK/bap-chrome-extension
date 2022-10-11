@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "My extension",
+  "description": "mention in BAP discord server",
+  "permissions": ["contextMenus", "tabs", "storage", "activeTab"],
+  "icons": {
+    "128": "bap.png"
+  },
+  "background": {
+    "service_worker": "index.js"
+  },
+  "host_permissions": ["*://*/*"]
+}

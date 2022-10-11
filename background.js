@@ -13,11 +13,11 @@ const MENTION_SELECTION_MENU_ID = "MENTION_SELECTION";
 const MENTION_SITE_MENU_ID = "MENTION_SITE";
 const MENTION_VIDEO_MENU_ID = "MENTION_VIDEO";
 
-chrome.storage.local.get("access_token", async ({ access_token }) => {
-  if (!access_token) {
-    window.location.replace("./popup-sign-in.html");
-  }
-});
+// chrome.storage.local.get("access_token", async ({ access_token }) => {
+//   if (!access_token) {
+//     window.location.replace("./popup-sign-in.html");
+//   }
+// });
 
 function getword(info, tab) {
   let data;

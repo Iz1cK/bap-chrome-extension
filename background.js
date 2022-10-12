@@ -37,7 +37,7 @@ function getword(info, tab) {
         Authorization: "Bearer " + access_token,
       },
     }).then((data) => data.json());
-    fetch("http://localhost:4000/mention", {
+    fetch("3.122.116.236:4000/mention", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: data, user: user }),

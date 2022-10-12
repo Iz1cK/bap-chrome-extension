@@ -36,6 +36,7 @@ function getword(info, tab) {
         resolve(channelid);
       });
     });
+    console.log({ channelid: await channelid });
     const user = await fetch("https://discordapp.com/api/users/@me", {
       method: "GET",
       headers: {
@@ -45,7 +46,11 @@ function getword(info, tab) {
     fetch("http://3.122.116.236:4000/mention", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: data, user: user, channelid: channelid }),
+      body: JSON.stringify({
+        message: data,
+        user: user,
+        channelid: await channelid,
+      }),
     }).catch(console.log);
   });
 }

@@ -1,5 +1,7 @@
 const button = document.querySelector("#sign-out");
 const main = document.querySelector("#main");
+const profile = document.querySelector("#profile");
+const channelsList = document.querySelector("#channelsList");
 
 chrome.storage.local.get("access_token", async ({ access_token }) => {
   if (!access_token) window.location.replace("./popup-sign-in.html");
@@ -9,15 +11,35 @@ chrome.storage.local.get("access_token", async ({ access_token }) => {
       Authorization: "Bearer " + access_token,
     },
   }).then((data) => data.json());
+  const channels = await fetch("http://3.122.116.236:4000/text-channels").then(
+    (data) => data.json()
+  );
+  channels.forEach((channel) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = channel.name;
+    listItem.setAttribute("channelid", channel.id);
+    listItem.addEventListener("click", (e) => {
+      chrome.storage.local.get("channelid", ({ channelid }) => {
+        if (channelid != channel.id) {
+          chrome.storage.local.set({ channelid: channel.id }, () => {
+            const oldListItem = document.querySelector(".chosen");
+            if (oldListItem) oldListItem.classList.remove("chosen");
+            listItem.classList.add("chosen");
+          });
+        }
+      });
+    });
+    channelsList.appendChild(listItem);
+  });
   const img = document.createElement("img");
   const username = document.createElement("h3");
   const email = document.createElement("h3");
   username.textContent = user.username + "#" + user.discriminator;
   email.textContent = user.email;
   img.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}?size=128`;
-  main.insertBefore(img, button);
-  main.insertBefore(username, button);
-  main.insertBefore(email, button);
+  profile.appendChild(img);
+  profile.appendChild(username);
+  profile.appendChild(email);
 });
 
 button.addEventListener("mouseover", () => {

@@ -35,12 +35,29 @@
         padding: 10px;
       }
 
-      img {
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 5px;
+      }
+
+      li {
+        cursor: pointer;
+        font-size: 125%;
+        margin: 2.5px;
+      }
+
+      .chosen {
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
     <div id="main">
+      <div id="profile"></div>
+      <h3>Channels list:</h3>
+      <ul id="channelsList"></ul>
       <button type="submit" id="sign-out">Sign Out</button>
     </div>
     <script src="./popup-sign-out-script.js"></script>

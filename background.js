@@ -31,6 +31,11 @@ function getword(info, tab) {
   } else return;
 
   chrome.storage.local.get("access_token", async ({ access_token }) => {
+    const channelid = new Promise(function (resolve, reject) {
+      chrome.storage.local.get("channelid", function ({ channelid }) {
+        resolve(channelid);
+      });
+    });
     const user = await fetch("https://discordapp.com/api/users/@me", {
       method: "GET",
       headers: {
@@ -40,7 +45,7 @@ function getword(info, tab) {
     fetch("http://3.122.116.236:4000/mention", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: data, user: user }),
+      body: JSON.stringify({ message: data, user: user, channelid: channelid }),
     }).catch(console.log);
   });
 }

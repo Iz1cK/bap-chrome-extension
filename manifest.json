@@ -3,7 +3,7 @@
   "version": "1.0",
   "name": "BAPstension",
   "description": "mention in BAP discord server",
-  "permissions": ["contextMenus", "tabs", "storage", "activeTab", "identity"],
+  "permissions": ["contextMenus", "storage", "activeTab", "identity"],
   "icons": {
     "128": "bap.png"
   },
@@ -13,5 +13,5 @@
   "action": {
     "default_popup": "popup-sign-in.html"
   },
-  "host_permissions": ["*://*/*"]
+  "host_permissions": ["https://*/*"]
 }

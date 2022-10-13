@@ -70,6 +70,11 @@ chrome.runtime.onInstalled.addListener(() => {
     contexts: ["video"],
     id: MENTION_VIDEO_MENU_ID,
   });
+  chrome.contextMenus.create({
+    title: "Mention Image on BAP: %s",
+    contexts: ["image"],
+    id: MENTION_VIDEO_MENU_ID,
+  });
 });
 chrome.contextMenus.onClicked.addListener(getword);
 

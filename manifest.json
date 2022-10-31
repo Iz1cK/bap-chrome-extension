@@ -3,7 +3,7 @@
   "version": "1.0",
   "name": "BAPstension",
   "description": "mention in BAP discord server",
-  "permissions": ["contextMenus", "storage", "activeTab", "identity"],
+  "permissions": ["contextMenus", "storage", "identity"],
   "icons": {
     "128": "bap.png"
   },

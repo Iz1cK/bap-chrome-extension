@@ -13,21 +13,33 @@ const STATE = encodeURIComponent(
 const MENTION_SELECTION_MENU_ID = "MENTION_SELECTION";
 const MENTION_SITE_MENU_ID = "MENTION_SITE";
 const MENTION_VIDEO_MENU_ID = "MENTION_VIDEO";
+const MENTION_IMAGE_MENU_ID = "MENTION_IMAGE";
+const SEARCH_FOR_CROSSWORD_ID = "SEARCH_CROSSWORD";
 
 // chrome.storage.local.get("access_token", async ({ access_token }) => {
 //   if (!access_token) {
 //     window.location.replace("./popup-sign-in.html");
 //   }
-// });
+// })
 
 function getword(info, tab) {
   let data;
   if (info.menuItemId === MENTION_SELECTION_MENU_ID) {
     data = info.selectionText;
-  } else if (info.menuItemId === MENTION_SITE_MENU_ID) {
+  } else if (
+    info.menuItemId === MENTION_SITE_MENU_ID ||
+    info.menuItemId === MENTION_IMAGE_MENU_ID ||
+    info.menuItemId === MENTION_VIDEO_MENU_ID
+  ) {
     data = info.pageUrl;
-  } else if (info.menuItemId === MENTION_VIDEO_MENU_ID) {
-    data = info.pageUrl;
+  } else if (info.menuItemId === SEARCH_FOR_CROSSWORD_ID) {
+    chrome.tabs.create({
+      url:
+        "https://www.google.com/search?q=" +
+        info.selectionText +
+        " nyt crossword",
+    });
+    return;
   } else return;
 
   chrome.storage.local.get("access_token", async ({ access_token }) => {
@@ -73,7 +85,12 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     title: "Mention Image on BAP: %s",
     contexts: ["image"],
-    id: MENTION_VIDEO_MENU_ID,
+    id: MENTION_IMAGE_MENU_ID,
+  });
+  chrome.contextMenus.create({
+    title: "Search for: %s nyt crossword",
+    contexts: ["selection"],
+    id: SEARCH_FOR_CROSSWORD_ID,
   });
 });
 chrome.contextMenus.onClicked.addListener(getword);
@@ -85,12 +102,11 @@ function create_auth_endpoint() {
   );
 
   let endpoint_url = `${DISCORD_URI_ENDPOINT}
-?client_id=${CLIENT_ID}
-&redirect_uri=${REDIRECT_URI}
-&response_type=${RESPONSE_TYPE}
-&scope=${SCOPE}
-&nonce=${nonce}`;
-
+                      ?client_id=${CLIENT_ID}
+                      &redirect_uri=${REDIRECT_URI}
+                      &response_type=${RESPONSE_TYPE}
+                      &scope=${SCOPE}
+                      &nonce=${nonce}`;
   return endpoint_url;
 }
 

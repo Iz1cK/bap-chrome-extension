@@ -33,10 +33,11 @@ function getword(info, tab) {
   ) {
     data = info.pageUrl;
   } else if (info.menuItemId === SEARCH_FOR_CROSSWORD_ID) {
+    console.log(encodeURI(info.selectionText));
     chrome.tabs.create({
       url:
         "https://www.google.com/search?tbs=qdr:d&q=" +
-        info.selectionText +
+        encodeURIComponent(info.selectionText) +
         " nyt crossword",
     });
     return;
